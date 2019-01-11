@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bitcoin</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content="30" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
+
+    <%tdata= @tdata%>
+    <%total_coins= @total_coins%>
+    <%block_list= @block_list%>
+    
+    
+  </head>
+
+
+    <div class="jumbotron"><h1>Bitcoin Simulator</h1></div>
+
+
+
+    <div class="phx-hero">
+    <%tm= @tm%>
+      <h2>Total Bitcoins Mined: <%=total_coins%></h2>
+      <h2>Total Blocks: <%=tdata%></h2>
+      <h2>Total Amount Transacted: <%=tm%></h2>
+    </div>
+
+
+
+    <div>
+    <h2>Refresh Number vs Block Number</h2>
+      <% tdata=@tdata 
+      block_list= @block_list
+      data = Poison.encode!(block_list) %>
+      <%= raw Chartkick.bar_chart data %>
+      <td></td>
+    </div>
+
+    <div>
+    <h2>Refresh Number vs Transacted Amount</h2>
+      <% t=@t
+      data = Poison.encode!(t) %>
+      <%= raw Chartkick.bar_chart data %>
+      <td></td>
+    </div>
+
+    
+    <div class="phx-hero">
+      <h2>Transactions</h2>
+
+      <% 
+      pending_txns = @pending_txns 
+      completed_txns = @completed_txns 
+      pie_data= Poison.encode!([["Pending Transactions", length(pending_txns)],["Mined Transactions",completed_txns]]) %> 
+      <%= raw Chartkick.pie_chart pie_data %>
+
+      <tr>
+        <td align="left">Transactions completed: <%=completed_txns%></td>
+        <td align="right">Transactions pending: <%=length(pending_txns)%></td>
+      </tr>
+    </div>
+
+     </body>
+</html>
