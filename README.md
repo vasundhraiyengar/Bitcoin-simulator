@@ -1,8 +1,3 @@
-Team members:
-
-Sai Kirthi Kasimi, UFID:1628-6038
-Vasundhra Iyengar, UFID: 4474-1991
-
 We are showing a simulation for 100 nodes
 
 In the user interface we are showing
